@@ -1,10 +1,10 @@
-import type { Movie } from "../../lib/types"
+import type { Media } from "../../lib/types"
 
 import { TMDB_CONFIG } from "../../constants/tmdb-config"
 import { env } from "../../env"
 
 interface MediaCardProps {
-  media: Movie
+  media: Media
   isInWatchlist?: boolean
 }
 
@@ -14,9 +14,15 @@ export default function MediaCard({ media, isInWatchlist }: MediaCardProps) {
     : "/placeholder.svg"
 
   const rating = Math.round(media.vote_average * 10) / 10
-  const date = media.release_date || "N/A"
+  const date =
+    "release_date" in media
+      ? media.release_date
+      : "first_air_date" in media
+        ? media.first_air_date
+        : "N/A"
   const year = date !== "N/A" ? new Date(date).getFullYear() : "N/A"
-  const title = media.title || "Untitled"
+  const title =
+    "title" in media ? media.title : "name" in media ? media.name : "Untitled"
 
   return (
     <div className="group flex h-[20rem] cursor-pointer flex-col">
@@ -28,13 +34,13 @@ export default function MediaCard({ media, isInWatchlist }: MediaCardProps) {
           draggable={false}
         />
 
-        <div className="from-primary text-foreground absolute top-2 right-2 flex items-center gap-1 rounded-full bg-linear-to-r to-red-700 px-3 py-1 text-sm font-bold">
+        <div className="text-foreground absolute top-2 right-2 flex items-center gap-1 rounded-full bg-linear-to-r from-transparent to-red-700 px-3 py-1 text-sm font-bold">
           <span>★</span>
           {rating}
         </div>
 
         {isInWatchlist && (
-          <div className="bg-primary text-foreground absolute bottom-2 left-2 flex items-center gap-1 rounded-full px-2 py-1 text-xs font-semibold">
+          <div className="text-foreground absolute bottom-2 left-2 flex items-center gap-1 rounded-full bg-transparent px-2 py-1 text-xs font-semibold">
             <span>♥</span> Saved
           </div>
         )}

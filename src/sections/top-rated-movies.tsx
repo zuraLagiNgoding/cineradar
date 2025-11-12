@@ -2,13 +2,13 @@ import { useQuery } from "@tanstack/react-query"
 
 import Section from "../components/layout/section"
 import MediaCard from "../components/media/media-card"
-import MediaCardSkeleton from "../components/media/skeletons/media-card"
+import MediaCardSkeleton from "../components/media/skeletons/media-card-skeleton"
 
 import { topRatedMovieQueryOptions } from "../services/query-options"
 
 export default function TopRatedMoviesSection() {
   // =========== Queries ===========
-  const { data, isLoading } = useQuery(topRatedMovieQueryOptions())
+  const { data, isLoading } = useQuery(topRatedMovieQueryOptions("movie"))
   // =========== Queries ===========
 
   return (
@@ -19,8 +19,8 @@ export default function TopRatedMoviesSection() {
               <MediaCardSkeleton key={index} />
             ))
           : data &&
-            data.results?.map((movie) => (
-              <MediaCard key={movie.id} media={movie} />
+            data.results?.map((media) => (
+              <MediaCard key={media.id} media={media} />
             ))}
       </div>
     </Section>

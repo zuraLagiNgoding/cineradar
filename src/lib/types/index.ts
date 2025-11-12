@@ -1,4 +1,6 @@
-export type Movie = {
+export type MediaType = "movie" | "tv"
+
+export type BaseMedia = {
   adult: boolean
   backdrop_path: string
   genre_ids: number[]
@@ -8,9 +10,23 @@ export type Movie = {
   overview: string
   popularity: number
   poster_path: string
-  release_date: string
-  title: string
+  
   video: boolean
   vote_average: number
   vote_count: number
 }
+
+export type Movie = BaseMedia & {
+  original_title: string
+  release_date: string
+  title: string
+}
+
+export type TVSeries = BaseMedia & {
+  original_name: string
+  name: string
+  first_air_date: string
+  origin_country: string[]
+}
+
+export type Media = Movie | TVSeries

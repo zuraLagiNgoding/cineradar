@@ -1,8 +1,8 @@
-import type { Movie } from "../lib/types"
+import type { Media, MediaType } from "../lib/types"
 import type { CursorResponse } from "../lib/types/api"
 
 import { api } from "../lib/api"
 
-export const getAllTopRatedMovies = () => {
-  return api.get("movie/top_rated").json<CursorResponse<Movie>>()
+export const getAllTopRatedMedia = (mediaType: MediaType) => {
+  return api.get(`${mediaType}/top_rated`).json<CursorResponse<Media>>()
 }

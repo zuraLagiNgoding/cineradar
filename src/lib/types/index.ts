@@ -10,7 +10,7 @@ export type BaseMedia = {
   overview: string
   popularity: number
   poster_path: string
-  
+
   video: boolean
   vote_average: number
   vote_count: number

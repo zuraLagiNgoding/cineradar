@@ -1,8 +1,10 @@
 import { useQuery } from "@tanstack/react-query"
+
 import Section from "../components/layout/section"
-import { topRatedMovieQueryOptions } from "../services/query-options"
-import MediaCardSkeleton from "../components/media/skeletons/media-card-skeleton"
 import MediaCard from "../components/media/media-card"
+import MediaCardSkeleton from "../components/media/skeletons/media-card-skeleton"
+
+import { topRatedMovieQueryOptions } from "../services/query-options"
 
 export default function TopRatedTVSeriesSection() {
   // =========== Queries ===========

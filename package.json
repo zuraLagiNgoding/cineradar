@@ -18,6 +18,8 @@
     "@tanstack/react-query-devtools": "^5.90.2",
     "@tanstack/react-router": "^1.135.2",
     "clsx": "^2.1.1",
+    "embla-carousel-autoplay": "^8.6.0",
+    "embla-carousel-react": "^8.6.0",
     "ky": "^1.14.0",
     "lucide-react": "^0.553.0",
     "react": "^19.2.0",

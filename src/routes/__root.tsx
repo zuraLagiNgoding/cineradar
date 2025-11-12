@@ -5,6 +5,8 @@ import { createRootRoute, Outlet } from "@tanstack/react-router"
 
 import { Toaster } from "sonner"
 
+import Navbar from "../components/layout/navbar"
+
 export const Route = createRootRoute({
   component: RootComponent,
 })
@@ -12,7 +14,11 @@ export const Route = createRootRoute({
 function RootComponent() {
   return (
     <React.Fragment>
-      <Outlet />
+      <main className="flex flex-col items-center">        
+        <Navbar />
+  
+        <Outlet />
+      </main>
 
       <Toaster position="top-center" theme="system" />
 

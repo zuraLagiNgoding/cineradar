@@ -19,7 +19,7 @@ export default function MediaCard({ media, isInWatchlist }: MediaCardProps) {
   const title = media.title || "Untitled"
 
   return (
-    <div className="group flex h-full cursor-pointer flex-col">
+    <div className="group flex h-[20rem] cursor-pointer flex-col">
       <div className="bg-card relative mb-3 flex-1 overflow-hidden rounded-lg">
         <img
           src={posterUrl || "/placeholder.svg"}

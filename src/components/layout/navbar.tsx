@@ -1,7 +1,14 @@
-import { Link } from "@tanstack/react-router"
+import { useState } from "react"
 
-import { ChevronDown, Clapperboard } from "lucide-react"
+import { useQuery } from "@tanstack/react-query"
+import { Link, useSearch } from "@tanstack/react-router"
 
+import { ChevronDown, Clapperboard, SearchIcon } from "lucide-react"
+
+import { searchMediaQueryOptions } from "../../services/query-options"
+
+import CompactMediaCard from "../media/compact-media-card"
+import CompactMediaCardSkeleton from "../media/skeletons/compact-media-card-skeleton"
 import { Button } from "../ui/button"
 import {
   DropdownMenu,
@@ -10,6 +17,79 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from "../ui/dropdown-menu"
+
+function Search() {
+  const { query } = useSearch({ strict: false })
+
+  const [searchQuery, setSearchQuery] = useState(query ?? "")
+
+  // =========== Queries ===========
+  const { data: moviesData, isLoading: moviesIsLoading } = useQuery(
+    searchMediaQueryOptions("movie", searchQuery, 1)
+  )
+
+  const { data: tvData, isLoading: tvIsLoading } = useQuery(
+    searchMediaQueryOptions("tv", searchQuery, 1)
+  )
+  // =========== Queries ===========
+
+  return (
+    <div className="relative z-50 w-80">
+      <form
+        action="/search"
+        className="peer relative rounded-lg bg-neutral-800"
+      >
+        <input
+          type="search"
+          placeholder="Search"
+          className="h-8 w-full px-4 py-1"
+          id="query"
+          name="query"
+          value={searchQuery}
+          onInput={(e) => setSearchQuery(e.currentTarget.value)}
+        />
+        <SearchIcon
+          size={20}
+          className="absolute top-1/2 right-3 -translate-y-1/2"
+        />
+      </form>
+      <div className="absolute -bottom-2 hidden w-full translate-y-full flex-col gap-4 rounded-lg bg-neutral-800 px-4 py-2 shadow peer-focus-within:flex">
+        {searchQuery.length < 1 ? (
+          <p>No results found</p>
+        ) : (
+          <>
+            <div className="flex flex-col gap-4">
+              <h2 className="text-xl font-bold">Movies</h2>
+              <div className="flex flex-col gap-2">
+                {moviesIsLoading
+                  ? Array.from({ length: 5 }).map((_, index) => (
+                      <CompactMediaCardSkeleton key={index} />
+                    ))
+                  : (moviesData?.results ?? [])
+                      .slice(0, 5)
+                      .map((movie) => (
+                        <CompactMediaCard key={movie.id} media={movie} />
+                      ))}
+              </div>
+            </div>
+            <div className="flex flex-col gap-4">
+              <h2 className="text-xl font-bold">TV Show</h2>
+              <div className="flex flex-col gap-2">
+                {tvIsLoading
+                  ? Array.from({ length: 5 }).map((_, index) => (
+                      <CompactMediaCardSkeleton key={index} />
+                    ))
+                  : (tvData?.results ?? [])
+                      .slice(0, 5)
+                      .map((tv) => <CompactMediaCard key={tv.id} media={tv} />)}
+              </div>
+            </div>
+          </>
+        )}
+      </div>
+    </div>
+  )
+}
 
 export default function Navbar() {
   return (
@@ -26,6 +106,7 @@ export default function Navbar() {
         />
       </div>
       <div className="flex items-center gap-2">
+        <Search />
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
             <Button variant="ghost" aria-label="Movie Nav Dropdown">

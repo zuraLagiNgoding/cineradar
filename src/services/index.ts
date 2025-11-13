@@ -1,4 +1,4 @@
-import type { Media, MediaType, Movie, Person, TVSeries } from "../lib/types"
+import type { Media, MediaType, Movie, Person, TV } from "../lib/types"
 import type { CursorResponse } from "../lib/types/api"
 
 import { api } from "../lib/api"
@@ -34,7 +34,7 @@ export const getAllUpcomingMovies = (page: number) => {
 export const getAllOnTheAirTVShows = (page: number) => {
   return api
     .get(`tv/on_the_air`, { searchParams: { page } })
-    .json<CursorResponse<TVSeries>>()
+    .json<CursorResponse<TV>>()
 }
 
 export const getAllPopularPeople = () => {
@@ -43,4 +43,14 @@ export const getAllPopularPeople = () => {
 
 export const addWatchlist = () => {
   return api.get(`person/popular`).json<CursorResponse<Person>>()
+}
+
+export const searchMedia = (
+  mediaType: MediaType,
+  query: string,
+  page: number
+) => {
+  return api
+    .get(`search/${mediaType}`, { searchParams: { query, page } })
+    .json<CursorResponse<Media>>()
 }

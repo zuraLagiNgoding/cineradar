@@ -10,6 +10,9 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as SearchIndexRouteImport } from './routes/search/index'
+import { Route as SearchTvRouteImport } from './routes/search/tv'
+import { Route as SearchMoviesRouteImport } from './routes/search/movies'
 import { Route as TvTopRatedIndexRouteImport } from './routes/tv/top-rated/index'
 import { Route as TvOnTheAirIndexRouteImport } from './routes/tv/on-the-air/index'
 import { Route as TvFeaturedIndexRouteImport } from './routes/tv/featured/index'
@@ -20,6 +23,21 @@ import { Route as MovieFeaturedIndexRouteImport } from './routes/movie/featured/
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const SearchIndexRoute = SearchIndexRouteImport.update({
+  id: '/search/',
+  path: '/search/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const SearchTvRoute = SearchTvRouteImport.update({
+  id: '/search/tv',
+  path: '/search/tv',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const SearchMoviesRoute = SearchMoviesRouteImport.update({
+  id: '/search/movies',
+  path: '/search/movies',
   getParentRoute: () => rootRouteImport,
 } as any)
 const TvTopRatedIndexRoute = TvTopRatedIndexRouteImport.update({
@@ -55,6 +73,9 @@ const MovieFeaturedIndexRoute = MovieFeaturedIndexRouteImport.update({
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/search/movies': typeof SearchMoviesRoute
+  '/search/tv': typeof SearchTvRoute
+  '/search': typeof SearchIndexRoute
   '/movie/featured': typeof MovieFeaturedIndexRoute
   '/movie/top-rated': typeof MovieTopRatedIndexRoute
   '/movie/upcoming': typeof MovieUpcomingIndexRoute
@@ -64,6 +85,9 @@ export interface FileRoutesByFullPath {
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/search/movies': typeof SearchMoviesRoute
+  '/search/tv': typeof SearchTvRoute
+  '/search': typeof SearchIndexRoute
   '/movie/featured': typeof MovieFeaturedIndexRoute
   '/movie/top-rated': typeof MovieTopRatedIndexRoute
   '/movie/upcoming': typeof MovieUpcomingIndexRoute
@@ -74,6 +98,9 @@ export interface FileRoutesByTo {
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/search/movies': typeof SearchMoviesRoute
+  '/search/tv': typeof SearchTvRoute
+  '/search/': typeof SearchIndexRoute
   '/movie/featured/': typeof MovieFeaturedIndexRoute
   '/movie/top-rated/': typeof MovieTopRatedIndexRoute
   '/movie/upcoming/': typeof MovieUpcomingIndexRoute
@@ -85,6 +112,9 @@ export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
   fullPaths:
     | '/'
+    | '/search/movies'
+    | '/search/tv'
+    | '/search'
     | '/movie/featured'
     | '/movie/top-rated'
     | '/movie/upcoming'
@@ -94,6 +124,9 @@ export interface FileRouteTypes {
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
+    | '/search/movies'
+    | '/search/tv'
+    | '/search'
     | '/movie/featured'
     | '/movie/top-rated'
     | '/movie/upcoming'
@@ -103,6 +136,9 @@ export interface FileRouteTypes {
   id:
     | '__root__'
     | '/'
+    | '/search/movies'
+    | '/search/tv'
+    | '/search/'
     | '/movie/featured/'
     | '/movie/top-rated/'
     | '/movie/upcoming/'
@@ -113,6 +149,9 @@ export interface FileRouteTypes {
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  SearchMoviesRoute: typeof SearchMoviesRoute
+  SearchTvRoute: typeof SearchTvRoute
+  SearchIndexRoute: typeof SearchIndexRoute
   MovieFeaturedIndexRoute: typeof MovieFeaturedIndexRoute
   MovieTopRatedIndexRoute: typeof MovieTopRatedIndexRoute
   MovieUpcomingIndexRoute: typeof MovieUpcomingIndexRoute
@@ -128,6 +167,27 @@ declare module '@tanstack/react-router' {
       path: '/'
       fullPath: '/'
       preLoaderRoute: typeof IndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/search/': {
+      id: '/search/'
+      path: '/search'
+      fullPath: '/search'
+      preLoaderRoute: typeof SearchIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/search/tv': {
+      id: '/search/tv'
+      path: '/search/tv'
+      fullPath: '/search/tv'
+      preLoaderRoute: typeof SearchTvRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/search/movies': {
+      id: '/search/movies'
+      path: '/search/movies'
+      fullPath: '/search/movies'
+      preLoaderRoute: typeof SearchMoviesRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/tv/top-rated/': {
@@ -177,6 +237,9 @@ declare module '@tanstack/react-router' {
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  SearchMoviesRoute: SearchMoviesRoute,
+  SearchTvRoute: SearchTvRoute,
+  SearchIndexRoute: SearchIndexRoute,
   MovieFeaturedIndexRoute: MovieFeaturedIndexRoute,
   MovieTopRatedIndexRoute: MovieTopRatedIndexRoute,
   MovieUpcomingIndexRoute: MovieUpcomingIndexRoute,

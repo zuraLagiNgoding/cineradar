@@ -2,12 +2,15 @@ import { queryOptions } from "@tanstack/react-query"
 
 import { QUERY_KEYS } from "../constants/query-keys"
 
+import type { MediaType } from "../lib/types"
+
 import {
   getAllOnTheAirTVShows,
   getAllPopularMediaByType,
   getAllPopularPeople,
   getAllTopRatedMediaByType,
   getAllUpcomingMovies,
+  searchMedia,
 } from "."
 
 export const topRatedMediaQueryOptions = (
@@ -48,5 +51,16 @@ export const popularPeopleQueryOptions = () => {
   return queryOptions({
     queryKey: QUERY_KEYS.people.popular(),
     queryFn: getAllPopularPeople,
+  })
+}
+
+export const searchMediaQueryOptions = (
+  mediaType: MediaType,
+  query: string,
+  page: number = 1
+) => {
+  return queryOptions({
+    queryKey: QUERY_KEYS.media.search(mediaType, query, page),
+    queryFn: () => searchMedia(mediaType, query, page),
   })
 }

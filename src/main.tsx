@@ -42,7 +42,6 @@ const router = createRouter({
   },
   defaultPreloadStaleTime: 0,
   scrollRestoration: true,
-  notFoundMode: "fuzzy",
 })
 
 declare module "@tanstack/react-router" {

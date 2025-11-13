@@ -1,12 +1,11 @@
 import { useQuery } from "@tanstack/react-query"
 
+import List from "../components/layout/list"
 import Section from "../components/layout/section"
 import MediaCard from "../components/media/media-card"
 import MediaCardSkeleton from "../components/media/skeletons/media-card-skeleton"
 
 import { topRatedMediaQueryOptions } from "../services/query-options"
-
-import { cn, getMediaLayout } from "../lib/utils"
 
 type TopRatedMoviesSectionProps = {
   layout?: "grid" | "list"
@@ -21,7 +20,7 @@ export default function TopRatedTVSeriesSection({
 
   return (
     <Section title="Top Rated TV Series">
-      <div className={cn("pb-4", getMediaLayout(layout))}>
+      <List layout={layout}>
         {isLoading
           ? Array.from({ length: 10 }).map((_, index) => (
               <MediaCardSkeleton key={index} />
@@ -30,7 +29,7 @@ export default function TopRatedTVSeriesSection({
             data.results?.map((media) => (
               <MediaCard key={media.id} media={media} />
             ))}
-      </div>
+      </List>
     </Section>
   )
 }

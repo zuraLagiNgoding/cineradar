@@ -20,6 +20,7 @@ export default function PeopleCard({ person }: PeopleCardProps) {
           alt={`${person.name} profile`}
           className="h-full w-full rounded-full object-cover transition-all duration-300 group-hover:scale-110 group-hover:opacity-75"
           draggable={false}
+          loading="lazy"
         />
       </div>
       <div className="flex items-center gap-2">

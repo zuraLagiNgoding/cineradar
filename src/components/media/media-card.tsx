@@ -42,6 +42,7 @@ export default function MediaCard({ media, className }: MediaCardProps) {
             alt={`${title} poster`}
             className="size-full object-cover transition-transform duration-300 group-hover:scale-110"
             loading="lazy"
+            draggable={false}
           />
         </div>
 

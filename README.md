@@ -1,73 +1,64 @@
-# React + TypeScript + Vite
+# Cineradar
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Interview assessment project for **PT Lingkar Indonesia Mengajar**, built using [The Movie Database API](https://developer.themoviedb.org/docs/getting-started). This frontend application displaying movie database using modern frontend technologies with a responsive and clean UI.
 
-Currently, two official plugins are available:
+Live demo: [https://cineradar-zeta.vercel.app/](https://cineradar-zeta.vercel.app/)
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## 🚀 Tech Stack
 
-## React Compiler
+- [Bun](https://bun.sh/)
+- [Vite](https://vitejs.dev/)
+- [ReactJS](https://react.dev/)
+- [TailwindCSS](https://tailwindcss.com/)
+- [TanStack Query](https://tanstack.com/query)
+- [TanStack Router](https://tanstack.com/router)
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+## ✨ Features
 
-## Expanding the ESLint configuration
+## Features
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+- Browse popular, top rated, and now playing movies
+- Search movies and tv series
+- View detailed movie and tv series information
+- Responsive design for mobile and desktop
+- Clean and modern UI/UX
 
-```js
-export default defineConfig([
-  globalIgnores(["dist"]),
-  {
-    files: ["**/*.{ts,tsx}"],
-    extends: [
-      // Other configs...
+## 🛠️ Setup Instructions
 
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
+1. **Clone this repository:**
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ["./tsconfig.node.json", "./tsconfig.app.json"],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+   ```bash
+   git clone https://github.com/zuraLagiNgoding/cineradar
+   cd cineradar
+   ```
+
+2. **Install dependencies:**
+
+   ```bash
+   bun install
+   ```
+
+3. **Start the development server:**
+
+   ```bash
+   bun run dev
+   ```
+
+4. **Access the app at:**
+
+   ```
+   http://localhost:5173
+   ```
+
+## 📁 Project Structure (Simplified)
+
 ```
-
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
-
-```js
-// eslint.config.js
-import reactDom from "eslint-plugin-react-dom"
-import reactX from "eslint-plugin-react-x"
-
-export default defineConfig([
-  globalIgnores(["dist"]),
-  {
-    files: ["**/*.{ts,tsx}"],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs["recommended-typescript"],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ["./tsconfig.node.json", "./tsconfig.app.json"],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+src/
+├── components/
+│ └── ui/             # Reusable UI components
+├── const/            # Const data like options
+├── interfaces/       # Data type interfaces
+├── libs/             # Utility functions and helpers
+├── App.tsx           # App root
+└── index.tsx         # Entry point
 ```

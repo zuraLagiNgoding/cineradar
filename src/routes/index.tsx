@@ -11,6 +11,7 @@ import type { CarouselSlide } from "../components/ui/carousel"
 
 import { env } from "../env"
 import FeaturedMoviesSection from "../sections/featured-movies"
+import MostPopularCelebritiesSection from "../sections/most-popular-celebrities"
 import TopRatedTVSeriesSection from "../sections/top-rated-tv-series"
 
 export const Route = createFileRoute("/")({
@@ -36,6 +37,8 @@ function RouteComponent() {
   return (
     <>
       <Carousel slides={topRatedMovieSlides} loading={isLoading} />
+
+      <MostPopularCelebritiesSection />
 
       <FeaturedMoviesSection layout="list" />
 

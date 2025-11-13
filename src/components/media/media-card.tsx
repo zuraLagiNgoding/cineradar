@@ -31,7 +31,7 @@ export default function MediaCard({ media, className }: MediaCardProps) {
   return (
     <div
       className={cn(
-        "group flex h-80 max-w-52 min-w-52 flex-none cursor-pointer flex-col",
+        "group flex h-80 max-w-52 min-w-52 flex-none cursor-pointer snap-start flex-col select-none",
         className
       )}
     >

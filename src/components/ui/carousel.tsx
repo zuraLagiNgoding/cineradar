@@ -45,7 +45,7 @@ export default function Carousel({ slides, loading = false }: CarouselProps) {
 
   return (
     <Section
-      className="relative overflow-hidden rounded-2xl py-0 shadow-lg shadow-red-950/15"
+      className="relative overflow-hidden rounded-4xl py-0 shadow-lg shadow-red-950/15"
       ref={emblaRef}
     >
       {loading ? (
@@ -57,7 +57,7 @@ export default function Carousel({ slides, loading = false }: CarouselProps) {
             {slides.map((slide) => (
               <div
                 key={slide.id}
-                className="relative flex h-52 min-w-full flex-col justify-center text-white sm:h-120"
+                className="relative flex h-52 min-w-full flex-col justify-center text-white select-none sm:h-120"
               >
                 {/* Backdrop */}
                 {slide.backdrop && (

@@ -1,6 +1,15 @@
 import { Link } from "@tanstack/react-router"
 
-import { Bookmark, Clapperboard, Sun } from "lucide-react"
+import { ChevronDown, Clapperboard } from "lucide-react"
+
+import { Button } from "../ui/button"
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuGroup,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
+} from "../ui/dropdown-menu"
 
 export default function Navbar() {
   return (
@@ -16,9 +25,49 @@ export default function Navbar() {
           size={28}
         />
       </div>
-      <div className="flex items-center gap-4">
-        <Bookmark size={20} />
-        <Sun size={20} />
+      <div className="flex items-center gap-2">
+        <DropdownMenu>
+          <DropdownMenuTrigger asChild>
+            <Button variant="ghost" aria-label="Movie Nav Dropdown">
+              Movie
+              <ChevronDown className="size-3" />
+            </Button>
+          </DropdownMenuTrigger>
+          <DropdownMenuContent>
+            <DropdownMenuGroup>
+              <DropdownMenuItem>
+                <Link to="/movie/featured">Featured</Link>
+              </DropdownMenuItem>
+              <DropdownMenuItem>
+                <Link to="/movie/top-rated">Top Rated</Link>
+              </DropdownMenuItem>
+              <DropdownMenuItem>
+                <Link to="/movie/upcoming">Upcoming</Link>
+              </DropdownMenuItem>
+            </DropdownMenuGroup>
+          </DropdownMenuContent>
+        </DropdownMenu>
+        <DropdownMenu>
+          <DropdownMenuTrigger asChild>
+            <Button variant="ghost" aria-label="TV Show Nav Dropdown">
+              TV Show
+              <ChevronDown className="size-3" />
+            </Button>
+          </DropdownMenuTrigger>
+          <DropdownMenuContent>
+            <DropdownMenuGroup>
+              <DropdownMenuItem>
+                <Link to="/tv/featured">Featured</Link>
+              </DropdownMenuItem>
+              <DropdownMenuItem>
+                <Link to="/tv/on-the-air">On The Air</Link>
+              </DropdownMenuItem>
+              <DropdownMenuItem>
+                <Link to="/tv/top-rated">Top Rated</Link>
+              </DropdownMenuItem>
+            </DropdownMenuGroup>
+          </DropdownMenuContent>
+        </DropdownMenu>
       </div>
     </nav>
   )

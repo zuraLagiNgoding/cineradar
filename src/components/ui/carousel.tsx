@@ -88,6 +88,7 @@ export default function Carousel({ slides, loading = false }: CarouselProps) {
           <div className="absolute bottom-6 left-1/2 z-30 flex -translate-x-1/2 gap-1.5 sm:bottom-12 sm:gap-2">
             {scrollSnaps.map((_, index) => (
               <button
+                aria-label={`Slide ${index + 1}`}
                 key={index}
                 onClick={() => emblaApi?.scrollTo(index)}
                 className={`h-1.5 rounded-full transition-all duration-300 sm:h-2 ${

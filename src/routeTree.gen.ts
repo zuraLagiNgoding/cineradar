@@ -10,11 +10,41 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as TvTopRatedIndexRouteImport } from './routes/tv/top-rated/index'
+import { Route as TvOnTheAirIndexRouteImport } from './routes/tv/on-the-air/index'
+import { Route as TvFeaturedIndexRouteImport } from './routes/tv/featured/index'
+import { Route as MovieUpcomingIndexRouteImport } from './routes/movie/upcoming/index'
+import { Route as MovieTopRatedIndexRouteImport } from './routes/movie/top-rated/index'
 import { Route as MovieFeaturedIndexRouteImport } from './routes/movie/featured/index'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const TvTopRatedIndexRoute = TvTopRatedIndexRouteImport.update({
+  id: '/tv/top-rated/',
+  path: '/tv/top-rated/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const TvOnTheAirIndexRoute = TvOnTheAirIndexRouteImport.update({
+  id: '/tv/on-the-air/',
+  path: '/tv/on-the-air/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const TvFeaturedIndexRoute = TvFeaturedIndexRouteImport.update({
+  id: '/tv/featured/',
+  path: '/tv/featured/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const MovieUpcomingIndexRoute = MovieUpcomingIndexRouteImport.update({
+  id: '/movie/upcoming/',
+  path: '/movie/upcoming/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const MovieTopRatedIndexRoute = MovieTopRatedIndexRouteImport.update({
+  id: '/movie/top-rated/',
+  path: '/movie/top-rated/',
   getParentRoute: () => rootRouteImport,
 } as any)
 const MovieFeaturedIndexRoute = MovieFeaturedIndexRouteImport.update({
@@ -26,27 +56,69 @@ const MovieFeaturedIndexRoute = MovieFeaturedIndexRouteImport.update({
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/movie/featured': typeof MovieFeaturedIndexRoute
+  '/movie/top-rated': typeof MovieTopRatedIndexRoute
+  '/movie/upcoming': typeof MovieUpcomingIndexRoute
+  '/tv/featured': typeof TvFeaturedIndexRoute
+  '/tv/on-the-air': typeof TvOnTheAirIndexRoute
+  '/tv/top-rated': typeof TvTopRatedIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/movie/featured': typeof MovieFeaturedIndexRoute
+  '/movie/top-rated': typeof MovieTopRatedIndexRoute
+  '/movie/upcoming': typeof MovieUpcomingIndexRoute
+  '/tv/featured': typeof TvFeaturedIndexRoute
+  '/tv/on-the-air': typeof TvOnTheAirIndexRoute
+  '/tv/top-rated': typeof TvTopRatedIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/movie/featured/': typeof MovieFeaturedIndexRoute
+  '/movie/top-rated/': typeof MovieTopRatedIndexRoute
+  '/movie/upcoming/': typeof MovieUpcomingIndexRoute
+  '/tv/featured/': typeof TvFeaturedIndexRoute
+  '/tv/on-the-air/': typeof TvOnTheAirIndexRoute
+  '/tv/top-rated/': typeof TvTopRatedIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/movie/featured'
+  fullPaths:
+    | '/'
+    | '/movie/featured'
+    | '/movie/top-rated'
+    | '/movie/upcoming'
+    | '/tv/featured'
+    | '/tv/on-the-air'
+    | '/tv/top-rated'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/movie/featured'
-  id: '__root__' | '/' | '/movie/featured/'
+  to:
+    | '/'
+    | '/movie/featured'
+    | '/movie/top-rated'
+    | '/movie/upcoming'
+    | '/tv/featured'
+    | '/tv/on-the-air'
+    | '/tv/top-rated'
+  id:
+    | '__root__'
+    | '/'
+    | '/movie/featured/'
+    | '/movie/top-rated/'
+    | '/movie/upcoming/'
+    | '/tv/featured/'
+    | '/tv/on-the-air/'
+    | '/tv/top-rated/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   MovieFeaturedIndexRoute: typeof MovieFeaturedIndexRoute
+  MovieTopRatedIndexRoute: typeof MovieTopRatedIndexRoute
+  MovieUpcomingIndexRoute: typeof MovieUpcomingIndexRoute
+  TvFeaturedIndexRoute: typeof TvFeaturedIndexRoute
+  TvOnTheAirIndexRoute: typeof TvOnTheAirIndexRoute
+  TvTopRatedIndexRoute: typeof TvTopRatedIndexRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -56,6 +128,41 @@ declare module '@tanstack/react-router' {
       path: '/'
       fullPath: '/'
       preLoaderRoute: typeof IndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/tv/top-rated/': {
+      id: '/tv/top-rated/'
+      path: '/tv/top-rated'
+      fullPath: '/tv/top-rated'
+      preLoaderRoute: typeof TvTopRatedIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/tv/on-the-air/': {
+      id: '/tv/on-the-air/'
+      path: '/tv/on-the-air'
+      fullPath: '/tv/on-the-air'
+      preLoaderRoute: typeof TvOnTheAirIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/tv/featured/': {
+      id: '/tv/featured/'
+      path: '/tv/featured'
+      fullPath: '/tv/featured'
+      preLoaderRoute: typeof TvFeaturedIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/movie/upcoming/': {
+      id: '/movie/upcoming/'
+      path: '/movie/upcoming'
+      fullPath: '/movie/upcoming'
+      preLoaderRoute: typeof MovieUpcomingIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/movie/top-rated/': {
+      id: '/movie/top-rated/'
+      path: '/movie/top-rated'
+      fullPath: '/movie/top-rated'
+      preLoaderRoute: typeof MovieTopRatedIndexRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/movie/featured/': {
@@ -71,6 +178,11 @@ declare module '@tanstack/react-router' {
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   MovieFeaturedIndexRoute: MovieFeaturedIndexRoute,
+  MovieTopRatedIndexRoute: MovieTopRatedIndexRoute,
+  MovieUpcomingIndexRoute: MovieUpcomingIndexRoute,
+  TvFeaturedIndexRoute: TvFeaturedIndexRoute,
+  TvOnTheAirIndexRoute: TvOnTheAirIndexRoute,
+  TvTopRatedIndexRoute: TvTopRatedIndexRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)

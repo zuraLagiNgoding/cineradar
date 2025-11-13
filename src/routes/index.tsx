@@ -1,6 +1,16 @@
+import { useQuery } from "@tanstack/react-query"
 import { createFileRoute } from "@tanstack/react-router"
 
-import TopRatedMoviesSection from "../sections/top-rated-movies"
+import { TMDB_CONFIG } from "../constants/tmdb-config"
+
+import Carousel from "../components/ui/carousel"
+
+import { topRatedMediaQueryOptions } from "../services/query-options"
+
+import type { CarouselSlide } from "../components/ui/carousel"
+
+import { env } from "../env"
+import FeaturedMoviesSection from "../sections/featured-movies"
 import TopRatedTVSeriesSection from "../sections/top-rated-tv-series"
 
 export const Route = createFileRoute("/")({
@@ -8,13 +18,28 @@ export const Route = createFileRoute("/")({
 })
 
 function RouteComponent() {
+  // =========== Queries ===========
+  const { data, isLoading } = useQuery(topRatedMediaQueryOptions("movie"))
+  // =========== Queries ===========
+
+  const topRatedMovieSlides: CarouselSlide[] = data
+    ? data.results.map((movie) => ({
+        id: movie.id,
+        title: "title" in movie ? movie.title : "",
+        description: movie.overview,
+        backdrop: movie.backdrop_path
+          ? `${env.VITE_APP_IMAGE_BASE_URL}/${TMDB_CONFIG.BACKDROP_SIZE}${movie.backdrop_path}`
+          : "",
+      }))
+    : []
+
   return (
     <>
-      {/*<Carousel />*/}
+      <Carousel slides={topRatedMovieSlides} loading={isLoading} />
 
-      <TopRatedMoviesSection />
+      <FeaturedMoviesSection layout="list" />
 
-      <TopRatedTVSeriesSection />
+      <TopRatedTVSeriesSection layout="list" />
     </>
   )
 }

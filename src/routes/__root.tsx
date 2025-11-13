@@ -14,9 +14,8 @@ export const Route = createRootRoute({
 function RootComponent() {
   return (
     <React.Fragment>
-      <main className="bg-background text-foreground flex flex-col items-center">
-        <Navbar />
-
+      <Navbar />
+      <main className="flex flex-col items-center">
         <Outlet />
       </main>
 

@@ -4,23 +4,23 @@ import Section from "../components/layout/section"
 import MediaCard from "../components/media/media-card"
 import MediaCardSkeleton from "../components/media/skeletons/media-card-skeleton"
 
-import { topRatedMediaQueryOptions } from "../services/query-options"
+import { popularMediaQueryOptions } from "../services/query-options"
 
 import { cn, getMediaLayout } from "../lib/utils"
 
-type TopRatedMoviesSectionProps = {
+type FeaturedMoviesSectionProps = {
   layout?: "grid" | "list"
 }
 
-export default function TopRatedTVSeriesSection({
+export default function FeaturedMoviesSection({
   layout = "grid",
-}: TopRatedMoviesSectionProps) {
+}: FeaturedMoviesSectionProps) {
   // =========== Queries ===========
-  const { data, isLoading } = useQuery(topRatedMediaQueryOptions("tv"))
+  const { data, isLoading } = useQuery(popularMediaQueryOptions("movie"))
   // =========== Queries ===========
 
   return (
-    <Section title="Top Rated TV Series">
+    <Section title="Featured Movies">
       <div className={cn("pb-4", getMediaLayout(layout))}>
         {isLoading
           ? Array.from({ length: 10 }).map((_, index) => (

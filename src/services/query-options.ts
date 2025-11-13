@@ -2,11 +2,18 @@ import { queryOptions } from "@tanstack/react-query"
 
 import { QUERY_KEYS } from "../constants/query-keys"
 
-import { getAllTopRatedMedia } from "."
+import { getAllPopularMediaByType, getAllTopRatedMediaByType } from "."
 
-export const topRatedMovieQueryOptions = (mediaType: "movie" | "tv") => {
+export const topRatedMediaQueryOptions = (mediaType: "movie" | "tv") => {
   return queryOptions({
-    queryKey: QUERY_KEYS.movie.topRated(mediaType),
-    queryFn: () => getAllTopRatedMedia(mediaType),
+    queryKey: QUERY_KEYS.media.topRated(mediaType),
+    queryFn: () => getAllTopRatedMediaByType(mediaType),
+  })
+}
+
+export const popularMediaQueryOptions = (mediaType: "movie" | "tv") => {
+  return queryOptions({
+    queryKey: QUERY_KEYS.media.popular(mediaType),
+    queryFn: () => getAllPopularMediaByType(mediaType),
   })
 }

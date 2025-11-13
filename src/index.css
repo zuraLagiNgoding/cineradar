@@ -10,7 +10,31 @@
   --color-foreground: var(--foreground);
 }
 
+@layer base {
+  :root {
+    @apply bg-neutral-950;
+  }
+
+  body {
+    @apply text-foreground flex min-h-dvh flex-col items-center overflow-x-hidden bg-linear-to-bl from-neutral-950 via-neutral-400/15 to-red-950/15;
+  }
+}
+
 body {
   font-family: "Source Sans Pro", sans-serif;
   scrollbar-gutter: stable;
+}
+
+::-webkit-scrollbar {
+  height: 6px;
+  width: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: #1a1a1a;
+}
+
+::-webkit-scrollbar-thumb {
+  background-color: #555;
+  border-radius: 9999px;
 }

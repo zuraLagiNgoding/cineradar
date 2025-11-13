@@ -4,16 +4,24 @@ import Section from "../components/layout/section"
 import MediaCard from "../components/media/media-card"
 import MediaCardSkeleton from "../components/media/skeletons/media-card-skeleton"
 
-import { topRatedMovieQueryOptions } from "../services/query-options"
+import { topRatedMediaQueryOptions } from "../services/query-options"
 
-export default function TopRatedMoviesSection() {
+import { cn, getMediaLayout } from "../lib/utils"
+
+type TopRatedMoviesSectionProps = {
+  layout?: "grid" | "list"
+}
+
+export default function TopRatedMoviesSection({
+  layout = "grid",
+}: TopRatedMoviesSectionProps) {
   // =========== Queries ===========
-  const { data, isLoading } = useQuery(topRatedMovieQueryOptions("movie"))
+  const { data, isLoading } = useQuery(topRatedMediaQueryOptions("movie"))
   // =========== Queries ===========
 
   return (
     <Section title="Top Rated Movies">
-      <div className="grid w-full grid-cols-7 gap-4">
+      <div className={cn("pb-4", getMediaLayout(layout))}>
         {isLoading
           ? Array.from({ length: 10 }).map((_, index) => (
               <MediaCardSkeleton key={index} />

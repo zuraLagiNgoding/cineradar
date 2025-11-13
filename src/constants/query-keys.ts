@@ -12,6 +12,10 @@ export const QUERY_KEYS = {
       [mediaType, "on-the-air", page] as const,
     search: (mediaType: MediaType, query: string, page: number = 1) =>
       [mediaType, "search", query, page] as const,
+    details: (mediaType: MediaType, id: number) =>
+      [mediaType, "detail", id] as const,
+    credits: (mediaType: MediaType, id: number) =>
+      [mediaType, "credits", id] as const,
   },
   people: {
     popular: () => ["people", "popular"] as const,

@@ -1,4 +1,12 @@
-import type { Media, MediaType, Movie, Person, TV } from "../lib/types"
+import type {
+  Credits,
+  Media,
+  MediaDetails,
+  MediaType,
+  Movie,
+  Person,
+  TV,
+} from "../lib/types"
 import type { CursorResponse } from "../lib/types/api"
 
 import { api } from "../lib/api"
@@ -53,4 +61,12 @@ export const searchMedia = (
   return api
     .get(`search/${mediaType}`, { searchParams: { query, page } })
     .json<CursorResponse<Media>>()
+}
+
+export const getMediaDetails = (mediaType: MediaType, id: number) => {
+  return api.get(`${mediaType}/${id}`).json<MediaDetails>()
+}
+
+export const getMediaCredits = (mediaType: MediaType, id: number) => {
+  return api.get(`${mediaType}/${id}/credits`).json<Credits>()
 }

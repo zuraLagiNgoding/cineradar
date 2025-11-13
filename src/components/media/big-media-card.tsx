@@ -1,3 +1,5 @@
+import { Link } from "@tanstack/react-router"
+
 import { Star } from "lucide-react"
 
 import type { Media } from "../../lib/types"
@@ -13,6 +15,8 @@ interface BigMediaCardProps {
 }
 
 export default function BigMediaCard({ media, className }: BigMediaCardProps) {
+  const mediaType = "title" in media ? "movie" : "tv"
+
   const backdropUrl = media.backdrop_path
     ? `${env.VITE_APP_IMAGE_BASE_URL}/${TMDB_CONFIG.BACKDROP_SIZE}${media.backdrop_path}`
     : "/placeholder.svg"
@@ -29,9 +33,13 @@ export default function BigMediaCard({ media, className }: BigMediaCardProps) {
     "title" in media ? media.title : "name" in media ? media.name : "Untitled"
 
   return (
-    <div
+    <Link
+      to={`/${mediaType}/$id`}
+      params={{
+        id: media.id,
+      }}
       className={cn(
-        "group relative flex h-60 min-w-40 flex-1 flex-none cursor-pointer snap-start flex-col select-none sm:min-w-52 lg:h-80",
+        "group relative flex h-60 min-w-40 flex-none cursor-pointer snap-start flex-col select-none sm:min-w-52 lg:h-80",
         className
       )}
     >
@@ -58,6 +66,6 @@ export default function BigMediaCard({ media, className }: BigMediaCardProps) {
         </h3>
         <p className="text-muted-foreground">{year}</p>
       </div>
-    </div>
+    </Link>
   )
 }

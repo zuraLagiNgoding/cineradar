@@ -9,7 +9,7 @@ export default function Skeleton({ ...props }: SkeletonProps) {
     <div
       {...props}
       className={cn(
-        "rounded-lg bg-linear-to-tr from-transparent to-neutral-400/25",
+        "animate-pulse rounded-lg bg-linear-to-tr from-transparent to-neutral-400/25",
         props.className
       )}
     />

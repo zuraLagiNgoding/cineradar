@@ -29,6 +29,43 @@ export type Language = {
   name: string
 }
 
+/* CREDITS */
+
+export type Cast = {
+  adult: boolean
+  gender: number
+  id: number
+  known_for_department: string
+  name: string
+  original_name: string
+  popularity: number
+  profile_path: string | null
+  cast_id: number
+  character: string
+  credit_id: string
+  order: number
+}
+
+export type Crew = {
+  adult: boolean
+  gender: number
+  id: number
+  known_for_department: string
+  name: string
+  original_name: string
+  popularity: number
+  profile_path: string | null
+  credit_id: string
+  department: string
+  job: string
+}
+
+export type Credits = {
+  id: number
+  cast: Cast[]
+  crew: Crew[]
+}
+
 /* MOVIE */
 
 export type Movie = {
@@ -46,10 +83,6 @@ export type Movie = {
   video: boolean
   vote_average: number
   vote_count: number
-}
-
-export type MovieMultiSearchItem = Movie & {
-  media_type: "movie"
 }
 
 export type MovieDetails = Omit<Movie, "genre_ids"> & {
@@ -73,17 +106,11 @@ export type Person = {
   adult: boolean
   gender: number
   id: number
-  known_for: Movie[]
+  known_for: (Movie | TV)[]
   known_for_department: string
   name: string
   popularity: number
   profile_path: string
-}
-
-export type PersonMultiSearch = Omit<Person, "known_for"> & {
-  original_name: string
-  media_type: "person"
-  known_for: (MovieMultiSearchItem | TVMultiSearch)[]
 }
 
 export type PersonDetails = Person & {
@@ -163,11 +190,6 @@ export type TV = {
   vote_count: number
 }
 
-export type TVMultiSearch = TV & {
-  adult: boolean
-  media_type: "tv"
-}
-
 export type TVDetails = Omit<TV, "genre_ids"> & {
   adult: boolean
   created_by: Creator[]
@@ -194,9 +216,6 @@ export type TVDetails = Omit<TV, "genre_ids"> & {
 
 export type Media = Movie | TV
 
-export type MediaType = "movie" | "tv"
+export type MediaDetails = MovieDetails | TVDetails
 
-export type MultiSearchItem =
-  | MovieMultiSearchItem
-  | TVMultiSearch
-  | PersonMultiSearch
+export type MediaType = "movie" | "tv"

@@ -1,3 +1,5 @@
+import { Link } from "@tanstack/react-router"
+
 import { Star } from "lucide-react"
 
 import type { Media } from "../../lib/types"
@@ -15,6 +17,8 @@ export default function CompactMediaCard({
   media,
   className,
 }: CompactMediaCardProps) {
+  const mediaType = "title" in media ? "movie" : "tv"
+
   const posterUrl = media.poster_path
     ? `${env.VITE_APP_IMAGE_BASE_URL}/${TMDB_CONFIG.BACKDROP_SIZE}${media.poster_path}`
     : "/placeholder.svg"
@@ -31,11 +35,17 @@ export default function CompactMediaCard({
     "title" in media ? media.title : "name" in media ? media.name : "Untitled"
 
   return (
-    <div className={cn("group flex gap-2", className)}>
+    <Link
+      to={`/${mediaType}/$id`}
+      params={{
+        id: media.id,
+      }}
+      className={cn("group flex gap-2", className)}
+    >
       <img
         src={posterUrl}
         alt={`${title} poster`}
-        className="size-full h-20 w-auto rounded object-cover object-center transition-transform duration-300 group-hover:scale-110"
+        className="h-20 w-auto rounded object-cover object-center transition-transform duration-300 group-hover:scale-110"
         loading="lazy"
         draggable={false}
       />
@@ -47,6 +57,6 @@ export default function CompactMediaCard({
         </div>
         <p className="text-sm">{year}</p>
       </div>
-    </div>
+    </Link>
   )
 }

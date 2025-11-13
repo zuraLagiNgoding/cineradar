@@ -10,6 +10,8 @@ import {
   getAllPopularPeople,
   getAllTopRatedMediaByType,
   getAllUpcomingMovies,
+  getMediaCredits,
+  getMediaDetails,
   searchMedia,
 } from "."
 
@@ -62,5 +64,19 @@ export const searchMediaQueryOptions = (
   return queryOptions({
     queryKey: QUERY_KEYS.media.search(mediaType, query, page),
     queryFn: () => searchMedia(mediaType, query, page),
+  })
+}
+
+export const mediaDetailsQueryOptions = (mediaType: MediaType, id: number) => {
+  return queryOptions({
+    queryKey: QUERY_KEYS.media.details(mediaType, id),
+    queryFn: () => getMediaDetails(mediaType, id),
+  })
+}
+
+export const mediaCreditsQueryOptions = (mediaType: MediaType, id: number) => {
+  return queryOptions({
+    queryKey: QUERY_KEYS.media.credits(mediaType, id),
+    queryFn: () => getMediaCredits(mediaType, id),
   })
 }

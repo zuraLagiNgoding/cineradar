@@ -1,3 +1,5 @@
+import { Link } from "@tanstack/react-router"
+
 import { Star } from "lucide-react"
 
 import type { Media } from "../../lib/types"
@@ -13,6 +15,8 @@ interface MediaCardProps {
 }
 
 export default function MediaCard({ media, className }: MediaCardProps) {
+  const mediaType = "title" in media ? "movie" : "tv"
+
   const posterUrl = media.poster_path
     ? `${env.VITE_APP_IMAGE_BASE_URL}/${TMDB_CONFIG.POSTER_SIZE}${media.poster_path}`
     : "/placeholder.svg"
@@ -29,7 +33,11 @@ export default function MediaCard({ media, className }: MediaCardProps) {
     "title" in media ? media.title : "name" in media ? media.name : "Untitled"
 
   return (
-    <div
+    <Link
+      to={`/${mediaType}/$id`}
+      params={{
+        id: media.id,
+      }}
       className={cn(
         "group flex h-70 max-w-52 flex-none cursor-pointer snap-start flex-col select-none sm:h-80 sm:min-w-40",
         className
@@ -58,6 +66,6 @@ export default function MediaCard({ media, className }: MediaCardProps) {
         </h3>
         <p className="text-muted-foreground text-xs">{year}</p>
       </div>
-    </div>
+    </Link>
   )
 }

@@ -5,7 +5,9 @@ export function useDraggableScroll() {
   const pos = useRef<{ x: number; scroll: number } | null>(null)
 
   const onPointerDown = (e: React.PointerEvent) => {
-    ref.current?.setPointerCapture(e.pointerId)
+    if (ref.current && e.target === ref.current) {
+      ref.current.setPointerCapture(e.pointerId)
+    }
     pos.current = {
       x: e.clientX,
       scroll: ref.current?.scrollLeft || 0,

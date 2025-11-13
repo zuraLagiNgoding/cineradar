@@ -6,15 +6,15 @@ import { TMDB_CONFIG } from "../../constants/tmdb-config"
 import { env } from "../../env"
 import { cn } from "../../lib/utils"
 
-interface MediaCardProps {
+interface BigMediaCardProps {
   media: Media
   isInWatchlist?: boolean
   className?: string
 }
 
-export default function MediaCard({ media, className }: MediaCardProps) {
-  const posterUrl = media.poster_path
-    ? `${env.VITE_APP_IMAGE_BASE_URL}/${TMDB_CONFIG.POSTER_SIZE}${media.poster_path}`
+export default function BigMediaCard({ media, className }: BigMediaCardProps) {
+  const backdropUrl = media.backdrop_path
+    ? `${env.VITE_APP_IMAGE_BASE_URL}/${TMDB_CONFIG.BACKDROP_SIZE}${media.backdrop_path}`
     : "/placeholder.svg"
 
   const rating = Math.round(media.vote_average * 10) / 10
@@ -31,14 +31,14 @@ export default function MediaCard({ media, className }: MediaCardProps) {
   return (
     <div
       className={cn(
-        "group flex h-70 max-w-52 flex-none cursor-pointer snap-start flex-col select-none sm:h-80 sm:min-w-40",
+        "group relative flex h-60 min-w-40 flex-1 flex-none cursor-pointer snap-start flex-col select-none sm:min-w-52 lg:h-80",
         className
       )}
     >
-      <div className="bg-card relative mb-3 flex-1 overflow-hidden rounded-lg">
+      <div className="bg-card relative flex-1 overflow-hidden rounded-lg">
         <div className="size-full bg-linear-to-tr from-transparent to-neutral-400/25">
           <img
-            src={posterUrl || "/placeholder.svg"}
+            src={backdropUrl || "/placeholder.svg"}
             alt={`${title} poster`}
             className="size-full object-cover transition-transform duration-300 group-hover:scale-110"
             loading="lazy"
@@ -52,11 +52,11 @@ export default function MediaCard({ media, className }: MediaCardProps) {
         </div>
       </div>
 
-      <div className="flex-none space-y-1">
-        <h3 className="text-foreground group-hover:text-primary line-clamp-1 text-sm font-semibold transition-colors">
+      <div className="absolute flex h-full w-full flex-none flex-col items-center justify-center bg-neutral-900/35 opacity-0 transition group-hover:opacity-100">
+        <h3 className="text-foreground group-hover:text-primary line-clamp-1 text-lg font-semibold transition-colors">
           {title}
         </h3>
-        <p className="text-muted-foreground text-xs">{year}</p>
+        <p className="text-muted-foreground">{year}</p>
       </div>
     </div>
   )

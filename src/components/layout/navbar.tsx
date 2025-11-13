@@ -93,10 +93,10 @@ function Search() {
 
 export default function Navbar() {
   return (
-    <nav className="container flex items-center justify-between py-4">
-      <div className="relative">
+    <nav className="container flex flex-col items-center justify-between px-2 py-4 sm:flex-row">
+      <div className="relative mr-5 sm:mr-0">
         <Link to="/">
-          <h1 className="text-3xl font-black tracking-tight">
+          <h1 className="text-2xl font-black tracking-tight lg:text-3xl">
             CINE<span className="text-red-700">RADAR</span>
           </h1>
         </Link>

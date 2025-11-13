@@ -15,7 +15,7 @@ function RootComponent() {
   return (
     <React.Fragment>
       <Navbar />
-      <main className="flex flex-col items-center">
+      <main className="flex flex-col items-center overflow-hidden">
         <Outlet />
       </main>
 

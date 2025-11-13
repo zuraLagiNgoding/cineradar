@@ -9,7 +9,13 @@ type SectionProps = ComponentProps<"main"> & {
 
 export default function Section({ className, title, ...props }: SectionProps) {
   return (
-    <section className={cn("container py-6", className)} {...props}>
+    <section
+      className={cn(
+        "container flex flex-1 flex-col gap-3 px-2 py-6 md:px-0",
+        className
+      )}
+      {...props}
+    >
       {title && <h2 className="mb-4 text-2xl font-bold">{title}</h2>}
       {props.children}
     </section>

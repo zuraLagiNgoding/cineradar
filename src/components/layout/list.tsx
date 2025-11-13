@@ -20,7 +20,7 @@ export default function List({ layout, ...props }: ListProps) {
       className={cn(
         "pb-4",
         layout === "grid"
-          ? "grid w-full grid-cols-2 gap-4 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 2xl:grid-cols-7"
+          ? "grid w-fit grid-cols-2 gap-2 sm:grid-cols-3 sm:gap-4 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 2xl:grid-cols-7"
           : "flex w-full gap-2 overflow-x-auto scroll-smooth",
         props.className
       )}

@@ -2,6 +2,7 @@ export const TMDB_CONFIG = {
   POSTER_SIZE: "w342",
   BACKDROP_SIZE: "w1280",
   PROFILE_SIZE: "w185",
+  ORIGINAL: "original",
 } as const
 
 export const TMDB_ENDPOINTS = {

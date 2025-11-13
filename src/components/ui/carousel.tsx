@@ -49,7 +49,7 @@ export default function Carousel({ slides, loading = false }: CarouselProps) {
       ref={emblaRef}
     >
       {loading ? (
-        <Skeleton className="h-52 min-w-full flex-1 sm:h-120" />
+        <Skeleton className="h-52 min-w-full flex-none sm:h-120" />
       ) : (
         <>
           {/* Slides */}
@@ -64,7 +64,7 @@ export default function Carousel({ slides, loading = false }: CarouselProps) {
                   <img
                     src={slide.backdrop}
                     alt={slide.title}
-                    className="absolute inset-0 h-full w-full object-cover"
+                    className="absolute inset-0 size-full object-cover"
                   />
                 )}
 

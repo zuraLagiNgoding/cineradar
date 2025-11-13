@@ -5,21 +5,21 @@ import Section from "../components/layout/section"
 import MediaCard from "../components/media/media-card"
 import MediaCardSkeleton from "../components/media/skeletons/media-card-skeleton"
 
-import { topRatedMediaQueryOptions } from "../services/query-options"
+import { popularMediaQueryOptions } from "../services/query-options"
 
-type TopRatedTVShowSectionProps = {
+type FeaturedTVShowSectionProps = {
   layout?: "grid" | "list"
 }
 
-export default function TopRatedTVShowSection({
+export default function FeaturedTVShowSection({
   layout = "grid",
-}: TopRatedTVShowSectionProps) {
+}: FeaturedTVShowSectionProps) {
   // =========== Queries ===========
-  const { data, isLoading } = useQuery(topRatedMediaQueryOptions("tv"))
+  const { data, isLoading } = useQuery(popularMediaQueryOptions("tv"))
   // =========== Queries ===========
 
   return (
-    <Section title="Top Rated TV Show">
+    <Section title="Featured TV Show">
       <List layout={layout}>
         {isLoading
           ? Array.from({ length: 10 }).map((_, index) => (

@@ -7,8 +7,10 @@ export const getAllTopRatedMediaByType = (mediaType: MediaType) => {
   return api.get(`${mediaType}/top_rated`).json<CursorResponse<Media>>()
 }
 
-export const getAllPopularMediaByType = (mediaType: MediaType) => {
-  return api.get(`${mediaType}/popular`).json<CursorResponse<Media>>()
+export const getAllPopularMediaByType = (mediaType: MediaType, page = 1) => {
+  return api
+    .get(`${mediaType}/popular`, { searchParams: { page } })
+    .json<CursorResponse<Media>>()
 }
 
 export const getMediaDetailsByType = (mediaType: MediaType, id: number) => {

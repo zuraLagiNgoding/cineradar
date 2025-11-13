@@ -45,7 +45,7 @@ export default function Carousel({ slides, loading = false }: CarouselProps) {
 
   return (
     <Section
-      className="relative overflow-hidden rounded-4xl py-0 shadow-lg shadow-red-950/15"
+      className="relative overflow-hidden rounded-4xl p-0 shadow-lg shadow-red-950/15"
       ref={emblaRef}
     >
       {loading ? (

@@ -93,7 +93,7 @@ function Search() {
 
 export default function Navbar() {
   return (
-    <nav className="container flex flex-col items-center justify-between px-2 py-4 sm:flex-row">
+    <nav className="container flex flex-col items-center justify-between gap-2 px-2 py-4 md:flex-row">
       <div className="relative mr-5 sm:mr-0">
         <Link to="/">
           <h1 className="text-2xl font-black tracking-tight lg:text-3xl">
@@ -105,50 +105,52 @@ export default function Navbar() {
           size={28}
         />
       </div>
-      <div className="flex items-center gap-2">
+      <div className="flex flex-col items-center gap-2 sm:flex-row">
         <Search />
-        <DropdownMenu>
-          <DropdownMenuTrigger asChild>
-            <Button variant="ghost" aria-label="Movie Nav Dropdown">
-              Movie
-              <ChevronDown className="size-3" />
-            </Button>
-          </DropdownMenuTrigger>
-          <DropdownMenuContent>
-            <DropdownMenuGroup>
-              <DropdownMenuItem>
-                <Link to="/movie/featured">Featured</Link>
-              </DropdownMenuItem>
-              <DropdownMenuItem>
-                <Link to="/movie/top-rated">Top Rated</Link>
-              </DropdownMenuItem>
-              <DropdownMenuItem>
-                <Link to="/movie/upcoming">Upcoming</Link>
-              </DropdownMenuItem>
-            </DropdownMenuGroup>
-          </DropdownMenuContent>
-        </DropdownMenu>
-        <DropdownMenu>
-          <DropdownMenuTrigger asChild>
-            <Button variant="ghost" aria-label="TV Show Nav Dropdown">
-              TV Show
-              <ChevronDown className="size-3" />
-            </Button>
-          </DropdownMenuTrigger>
-          <DropdownMenuContent>
-            <DropdownMenuGroup>
-              <DropdownMenuItem>
-                <Link to="/tv/featured">Featured</Link>
-              </DropdownMenuItem>
-              <DropdownMenuItem>
-                <Link to="/tv/on-the-air">On The Air</Link>
-              </DropdownMenuItem>
-              <DropdownMenuItem>
-                <Link to="/tv/top-rated">Top Rated</Link>
-              </DropdownMenuItem>
-            </DropdownMenuGroup>
-          </DropdownMenuContent>
-        </DropdownMenu>
+        <div className="flex">
+          <DropdownMenu>
+            <DropdownMenuTrigger asChild>
+              <Button variant="ghost" aria-label="Movie Nav Dropdown">
+                Movie
+                <ChevronDown className="size-3" />
+              </Button>
+            </DropdownMenuTrigger>
+            <DropdownMenuContent>
+              <DropdownMenuGroup>
+                <DropdownMenuItem>
+                  <Link to="/movie/featured">Featured</Link>
+                </DropdownMenuItem>
+                <DropdownMenuItem>
+                  <Link to="/movie/top-rated">Top Rated</Link>
+                </DropdownMenuItem>
+                <DropdownMenuItem>
+                  <Link to="/movie/upcoming">Upcoming</Link>
+                </DropdownMenuItem>
+              </DropdownMenuGroup>
+            </DropdownMenuContent>
+          </DropdownMenu>
+          <DropdownMenu>
+            <DropdownMenuTrigger asChild>
+              <Button variant="ghost" aria-label="TV Show Nav Dropdown">
+                TV Show
+                <ChevronDown className="size-3" />
+              </Button>
+            </DropdownMenuTrigger>
+            <DropdownMenuContent>
+              <DropdownMenuGroup>
+                <DropdownMenuItem>
+                  <Link to="/tv/featured">Featured</Link>
+                </DropdownMenuItem>
+                <DropdownMenuItem>
+                  <Link to="/tv/on-the-air">On The Air</Link>
+                </DropdownMenuItem>
+                <DropdownMenuItem>
+                  <Link to="/tv/top-rated">Top Rated</Link>
+                </DropdownMenuItem>
+              </DropdownMenuGroup>
+            </DropdownMenuContent>
+          </DropdownMenu>
+        </div>
       </div>
     </nav>
   )

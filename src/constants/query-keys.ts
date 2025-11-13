@@ -2,10 +2,14 @@ import type { MediaType } from "../lib/types"
 
 export const QUERY_KEYS = {
   media: {
-    topRated: (mediaType: MediaType) => [mediaType, "top-rated"] as const,
+    topRated: (mediaType: MediaType, page: number = 1) =>
+      [mediaType, "top-rated", page] as const,
     popular: (mediaType: MediaType, page: number = 1) =>
       [mediaType, "popular", page] as const,
-    upcoming: (mediaType: MediaType) => [mediaType, "upcoming"] as const,
+    upcoming: (mediaType: MediaType, page: number = 1) =>
+      [mediaType, "upcoming", page] as const,
+    onTheAir: (mediaType: MediaType, page: number = 1) =>
+      [mediaType, "on-the-air", page] as const,
   },
   people: {
     popular: () => ["people", "popular"] as const,

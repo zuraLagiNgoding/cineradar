@@ -1,6 +1,6 @@
 import { Link } from "@tanstack/react-router"
 
-import { Bookmark, Clapperboard, Sun } from "lucide-react"
+import { Bookmark, Clapperboard } from "lucide-react"
 
 export default function Navbar() {
   return (
@@ -18,7 +18,6 @@ export default function Navbar() {
       </div>
       <div className="flex items-center gap-4">
         <Bookmark size={20} />
-        <Sun size={20} />
       </div>
     </nav>
   )

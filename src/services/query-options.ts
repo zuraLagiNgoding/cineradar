@@ -1,18 +1,22 @@
-import { infiniteQueryOptions, queryOptions } from "@tanstack/react-query"
+import { queryOptions } from "@tanstack/react-query"
 
 import { QUERY_KEYS } from "../constants/query-keys"
 
 import {
+  getAllOnTheAirTVShows,
   getAllPopularMediaByType,
   getAllPopularPeople,
   getAllTopRatedMediaByType,
   getAllUpcomingMovies,
 } from "."
 
-export const topRatedMediaQueryOptions = (mediaType: "movie" | "tv") => {
+export const topRatedMediaQueryOptions = (
+  mediaType: "movie" | "tv",
+  page: number = 1
+) => {
   return queryOptions({
-    queryKey: QUERY_KEYS.media.topRated(mediaType),
-    queryFn: () => getAllTopRatedMediaByType(mediaType),
+    queryKey: QUERY_KEYS.media.topRated(mediaType, page),
+    queryFn: () => getAllTopRatedMediaByType(mediaType, page),
   })
 }
 
@@ -26,27 +30,17 @@ export const popularMediaQueryOptions = (
   })
 }
 
-export const popularMediaInfiniteQueryOptions = (mediaType: "movie" | "tv") => {
-  return infiniteQueryOptions({
-    queryKey: QUERY_KEYS.media.popular(mediaType),
-    queryFn: async ({ pageParam = 1 }) => {
-      const res = await getAllPopularMediaByType(mediaType, pageParam)
-      return res
-    },
-    getNextPageParam: (lastPage) => {
-      if (lastPage.page < lastPage.total_pages) {
-        return lastPage.page + 1
-      }
-      return undefined
-    },
-    initialPageParam: 1,
+export const upcomingMovieQueryOptions = (page: number = 1) => {
+  return queryOptions({
+    queryKey: QUERY_KEYS.media.upcoming("movie", page),
+    queryFn: () => getAllUpcomingMovies(page),
   })
 }
 
-export const upcomingMovieQueryOptions = () => {
+export const onTheAirTVShowQueryOptions = (page: number = 1) => {
   return queryOptions({
-    queryKey: QUERY_KEYS.media.upcoming("movie"),
-    queryFn: getAllUpcomingMovies,
+    queryKey: QUERY_KEYS.media.onTheAir("tv", page),
+    queryFn: () => getAllOnTheAirTVShows(page),
   })
 }
 

@@ -12,30 +12,30 @@ import { Pagination } from "../components/ui/pagination"
 
 import { topRatedMediaQueryOptions } from "../services/query-options"
 
-type TopRatedMoviesSectionProps = {
+type TopRatedTVShowSectionProps = {
   layout?: "grid" | "list"
   navigation?: boolean
   pagination?: boolean
 }
 
-export default function TopRatedMoviesSection({
+export default function TopRatedTVShowSection({
   layout = "grid",
   navigation = false,
   pagination = false,
-}: TopRatedMoviesSectionProps) {
+}: TopRatedTVShowSectionProps) {
   const navigate = useNavigate()
   const [page, setPage] = useState(1)
 
   // =========== Queries ===========
   const { data, isLoading, isFetching } = useQuery(
-    topRatedMediaQueryOptions("movie", page)
+    topRatedMediaQueryOptions("tv", page)
   )
   // =========== Queries ===========
 
   const totalPages = data?.total_pages ?? 1
 
   return (
-    <Section title="Top Rated Movies">
+    <Section title="Top Rated TV Show">
       <List layout={layout}>
         {isLoading
           ? Array.from({ length: 10 }).map((_, index) => (
@@ -61,8 +61,8 @@ export default function TopRatedMoviesSection({
         <div className="mt-2 flex justify-center">
           <Button
             className="w-sm"
-            aria-label="See All Top Rated Movies"
-            onClick={() => navigate({ to: "/movie/featured" })}
+            aria-label="See All Top Rated TV Shows"
+            onClick={() => navigate({ to: "/tv/top-rated" })}
           >
             See All
           </Button>

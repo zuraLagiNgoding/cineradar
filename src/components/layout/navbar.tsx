@@ -7,6 +7,7 @@ import { ChevronDown, Clapperboard, SearchIcon } from "lucide-react"
 
 import { searchMediaQueryOptions } from "../../services/query-options"
 
+import useClickOutside from "../../lib/hooks/use-click-outside"
 import CompactMediaCard from "../media/compact-media-card"
 import CompactMediaCardSkeleton from "../media/skeletons/compact-media-card-skeleton"
 import { Button } from "../ui/button"
@@ -21,7 +22,12 @@ import {
 function Search() {
   const { query } = useSearch({ strict: false })
 
+  const [isDropdownOpen, setIsDropdownOpen] = useState(false)
   const [searchQuery, setSearchQuery] = useState(query ?? "")
+
+  const ref = useClickOutside<HTMLDivElement>(() => {
+    setIsDropdownOpen(false)
+  })
 
   // =========== Queries ===========
   const { data: moviesData, isLoading: moviesIsLoading } = useQuery(
@@ -34,11 +40,8 @@ function Search() {
   // =========== Queries ===========
 
   return (
-    <div className="relative z-50 w-80">
-      <form
-        action="/search"
-        className="peer relative rounded-lg bg-neutral-800"
-      >
+    <div ref={ref} className="relative z-50 w-80">
+      <form action="/search" className="relative rounded-lg bg-neutral-800">
         <input
           type="search"
           placeholder="Search"
@@ -47,46 +50,52 @@ function Search() {
           name="query"
           value={searchQuery}
           onInput={(e) => setSearchQuery(e.currentTarget.value)}
+          onFocus={() => setIsDropdownOpen(true)}
         />
         <SearchIcon
           size={20}
           className="absolute top-1/2 right-3 -translate-y-1/2"
         />
       </form>
-      <div className="absolute -bottom-2 hidden w-full translate-y-full flex-col gap-4 rounded-lg bg-neutral-800 px-4 py-2 shadow peer-focus-within:flex">
-        {searchQuery.length < 1 ? (
-          <p>No results found</p>
-        ) : (
-          <>
-            <div className="flex flex-col gap-4">
-              <h2 className="text-xl font-bold">Movies</h2>
-              <div className="flex flex-col gap-2">
-                {moviesIsLoading
-                  ? Array.from({ length: 5 }).map((_, index) => (
-                      <CompactMediaCardSkeleton key={index} />
-                    ))
-                  : (moviesData?.results ?? [])
-                      .slice(0, 5)
-                      .map((movie) => (
-                        <CompactMediaCard key={movie.id} media={movie} />
-                      ))}
+
+      {isDropdownOpen && (
+        <div className="absolute -bottom-2 flex max-h-[50svh] w-full translate-y-full flex-col gap-4 overflow-scroll rounded-lg bg-neutral-800 px-4 py-2 shadow">
+          {searchQuery.length < 1 ? (
+            <p>No results found</p>
+          ) : (
+            <>
+              <div className="flex flex-col gap-4">
+                <h2 className="text-xl font-bold">Movies</h2>
+                <div className="flex flex-col gap-2">
+                  {moviesIsLoading
+                    ? Array.from({ length: 5 }).map((_, index) => (
+                        <CompactMediaCardSkeleton key={index} />
+                      ))
+                    : (moviesData?.results ?? [])
+                        .slice(0, 5)
+                        .map((movie) => (
+                          <CompactMediaCard key={movie.id} media={movie} />
+                        ))}
+                </div>
               </div>
-            </div>
-            <div className="flex flex-col gap-4">
-              <h2 className="text-xl font-bold">TV Show</h2>
-              <div className="flex flex-col gap-2">
-                {tvIsLoading
-                  ? Array.from({ length: 5 }).map((_, index) => (
-                      <CompactMediaCardSkeleton key={index} />
-                    ))
-                  : (tvData?.results ?? [])
-                      .slice(0, 5)
-                      .map((tv) => <CompactMediaCard key={tv.id} media={tv} />)}
+              <div className="flex flex-col gap-4">
+                <h2 className="text-xl font-bold">TV Show</h2>
+                <div className="flex flex-col gap-2">
+                  {tvIsLoading
+                    ? Array.from({ length: 5 }).map((_, index) => (
+                        <CompactMediaCardSkeleton key={index} />
+                      ))
+                    : (tvData?.results ?? [])
+                        .slice(0, 5)
+                        .map((tv) => (
+                          <CompactMediaCard key={tv.id} media={tv} />
+                        ))}
+                </div>
               </div>
-            </div>
-          </>
-        )}
-      </div>
+            </>
+          )}
+        </div>
+      )}
     </div>
   )
 }

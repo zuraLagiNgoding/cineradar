@@ -7,6 +7,7 @@ import type { Media } from "../../lib/types"
 import { TMDB_CONFIG } from "../../constants/tmdb-config"
 import { env } from "../../env"
 import { cn } from "../../lib/utils"
+import FallbackImage from "../ui/fallback-image"
 
 interface MediaCardProps {
   media: Media
@@ -19,7 +20,7 @@ export default function MediaCard({ media, className }: MediaCardProps) {
 
   const posterUrl = media.poster_path
     ? `${env.VITE_APP_IMAGE_BASE_URL}/${TMDB_CONFIG.POSTER_SIZE}${media.poster_path}`
-    : "/placeholder.svg"
+    : null
 
   const rating = Math.round(media.vote_average * 10) / 10
   const date =
@@ -45,8 +46,8 @@ export default function MediaCard({ media, className }: MediaCardProps) {
     >
       <div className="bg-card relative mb-3 flex-1 overflow-hidden rounded-lg">
         <div className="size-full bg-linear-to-tr from-transparent to-neutral-400/25">
-          <img
-            src={posterUrl || "/placeholder.svg"}
+          <FallbackImage
+            src={posterUrl}
             alt={`${title} poster`}
             className="size-full object-cover transition-transform duration-300 group-hover:scale-110"
             loading="lazy"

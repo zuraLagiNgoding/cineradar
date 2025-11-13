@@ -16,6 +16,7 @@ import CastCard from "../../components/media/cast-card"
 import CrewCard from "../../components/media/crew-card"
 import CastCardSkeleton from "../../components/media/skeletons/cast-card-skeleton"
 import CrewCardSkeleton from "../../components/media/skeletons/crew-card-skeleton"
+import FallbackImage from "../../components/ui/fallback-image"
 import Skeleton from "../../components/ui/skeleton"
 import { TMDB_CONFIG } from "../../constants/tmdb-config"
 import { env } from "../../env"
@@ -48,11 +49,11 @@ function RouteComponent() {
 
   const backdropUrl = movie?.backdrop_path
     ? `${env.VITE_APP_IMAGE_BASE_URL}/${TMDB_CONFIG.BACKDROP_SIZE}${movie?.backdrop_path}`
-    : "/placeholder.svg"
+    : null
 
   const posterUrl = movie?.poster_path
     ? `${env.VITE_APP_IMAGE_BASE_URL}/${TMDB_CONFIG.POSTER_SIZE}${movie?.poster_path}`
-    : "/placeholder.svg"
+    : null
 
   const rating = movie ? Math.round(movie.vote_average * 10) / 10 : 0
 
@@ -64,8 +65,8 @@ function RouteComponent() {
       {isLoadingDetails || !movie ? (
         <Skeleton className="h-80 w-svw" />
       ) : (
-        <img
-          src={backdropUrl || "/placeholder.svg"}
+        <FallbackImage
+          src={backdropUrl}
           alt={`${movie.title} poster`}
           className="h-80 w-svw object-cover object-center"
           style={{
@@ -99,8 +100,8 @@ function RouteComponent() {
           </>
         ) : (
           <>
-            <img
-              src={posterUrl || "/placeholder.svg"}
+            <FallbackImage
+              src={posterUrl}
               alt={`${movie.title} poster`}
               className="h-48 w-auto rounded-lg object-cover"
               loading="lazy"
@@ -119,7 +120,7 @@ function RouteComponent() {
                 <p className="text-muted-foreground">{movie.runtime} mins</p>
                 <p className="text-muted-foreground">{year}</p>
               </div>
-              <div className="flex flex-wrap gap-3">
+              <div className="flex flex-wrap gap-2">
                 {movie.genres.map((genre) => (
                   <div
                     key={genre.id}
@@ -162,8 +163,9 @@ function RouteComponent() {
                 <CrewCardSkeleton key={index} />
               ))
             : creditsData &&
-              creditsData.crew?.map((crew) => (
-                <CrewCard key={crew.id} crew={crew} />
+              creditsData.crew?.map((crew, index) => (
+                // There is a problem with crew IDs being non-unique in some cases
+                <CrewCard key={index} crew={crew} />
               ))}
         </List>
       </Section>

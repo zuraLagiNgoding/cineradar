@@ -7,6 +7,7 @@ import type { Media } from "../../lib/types"
 import { TMDB_CONFIG } from "../../constants/tmdb-config"
 import { env } from "../../env"
 import { cn } from "../../lib/utils"
+import FallbackImage from "../ui/fallback-image"
 
 interface BigMediaCardProps {
   media: Media
@@ -19,7 +20,7 @@ export default function BigMediaCard({ media, className }: BigMediaCardProps) {
 
   const backdropUrl = media.backdrop_path
     ? `${env.VITE_APP_IMAGE_BASE_URL}/${TMDB_CONFIG.BACKDROP_SIZE}${media.backdrop_path}`
-    : "/placeholder.svg"
+    : null
 
   const rating = Math.round(media.vote_average * 10) / 10
   const date =
@@ -45,8 +46,8 @@ export default function BigMediaCard({ media, className }: BigMediaCardProps) {
     >
       <div className="bg-card relative flex-1 overflow-hidden rounded-lg">
         <div className="size-full bg-linear-to-tr from-transparent to-neutral-400/25">
-          <img
-            src={backdropUrl || "/placeholder.svg"}
+          <FallbackImage
+            src={backdropUrl}
             alt={`${title} poster`}
             className="size-full object-cover transition-transform duration-300 group-hover:scale-110"
             loading="lazy"

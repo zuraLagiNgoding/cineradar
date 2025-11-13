@@ -7,6 +7,7 @@ import type { Media } from "../../lib/types"
 import { TMDB_CONFIG } from "../../constants/tmdb-config"
 import { env } from "../../env"
 import { cn } from "../../lib/utils"
+import FallbackImage from "../ui/fallback-image"
 
 interface CompactMediaCardProps {
   media: Media
@@ -21,7 +22,7 @@ export default function CompactMediaCard({
 
   const posterUrl = media.poster_path
     ? `${env.VITE_APP_IMAGE_BASE_URL}/${TMDB_CONFIG.BACKDROP_SIZE}${media.poster_path}`
-    : "/placeholder.svg"
+    : null
 
   const rating = Math.round(media.vote_average * 10) / 10
   const date =
@@ -42,7 +43,7 @@ export default function CompactMediaCard({
       }}
       className={cn("group flex gap-2", className)}
     >
-      <img
+      <FallbackImage
         src={posterUrl}
         alt={`${title} poster`}
         className="h-20 w-auto rounded object-cover object-center transition-transform duration-300 group-hover:scale-110"

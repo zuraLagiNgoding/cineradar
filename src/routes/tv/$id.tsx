@@ -16,6 +16,7 @@ import CastCard from "../../components/media/cast-card"
 import CrewCard from "../../components/media/crew-card"
 import CastCardSkeleton from "../../components/media/skeletons/cast-card-skeleton"
 import CrewCardSkeleton from "../../components/media/skeletons/crew-card-skeleton"
+import FallbackImage from "../../components/ui/fallback-image"
 import Skeleton from "../../components/ui/skeleton"
 import { TMDB_CONFIG } from "../../constants/tmdb-config"
 import { env } from "../../env"
@@ -48,11 +49,11 @@ function RouteComponent() {
 
   const backdropUrl = tv?.backdrop_path
     ? `${env.VITE_APP_IMAGE_BASE_URL}/${TMDB_CONFIG.BACKDROP_SIZE}${tv?.backdrop_path}`
-    : "/placeholder.svg"
+    : null
 
   const posterUrl = tv?.poster_path
     ? `${env.VITE_APP_IMAGE_BASE_URL}/${TMDB_CONFIG.POSTER_SIZE}${tv?.poster_path}`
-    : "/placeholder.svg"
+    : null
 
   const rating = tv ? Math.round(tv.vote_average * 10) / 10 : 0
 
@@ -61,8 +62,8 @@ function RouteComponent() {
 
   return (
     <>
-      <img
-        src={backdropUrl || "/placeholder.svg"}
+      <FallbackImage
+        src={backdropUrl}
         alt={`${tv?.name} poster`}
         className="h-80 w-svw object-cover object-center"
         style={{
@@ -75,8 +76,8 @@ function RouteComponent() {
       />
 
       <Section className="z-10 -mt-32 flex-row gap-5 pb-0">
-        <img
-          src={posterUrl || "/placeholder.svg"}
+        <FallbackImage
+          src={posterUrl}
           alt={`${tv?.name} poster`}
           className="h-48 w-auto rounded-lg object-cover"
           loading="lazy"
@@ -89,10 +90,12 @@ function RouteComponent() {
               <Star size={16} className="fill-yellow-400 stroke-yellow-400" />
               <span className="text-lg font-bold">{rating}/10</span>
             </div>
-            <p className="text-muted-foreground">{tv?.episode_run_time} mins</p>
+            <p className="text-muted-foreground">
+              {tv?.number_of_episodes} episodes
+            </p>
             <p className="text-muted-foreground">{year}</p>
           </div>
-          <div className="flex flex-wrap gap-3">
+          <div className="flex flex-wrap gap-2">
             {tv?.genres.map((genre) => (
               <div
                 key={genre.id}
@@ -133,8 +136,9 @@ function RouteComponent() {
                 <CrewCardSkeleton key={index} />
               ))
             : creditsData &&
-              creditsData.crew?.map((crew) => (
-                <CrewCard key={crew.id} crew={crew} />
+              creditsData.crew?.map((crew, index) => (
+                // There is a problem with crew IDs being non-unique in some cases
+                <CrewCard key={index} crew={crew} />
               ))}
         </List>
       </Section>

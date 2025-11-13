@@ -4,6 +4,7 @@ import Autoplay from "embla-carousel-autoplay"
 import useEmblaCarousel from "embla-carousel-react"
 
 import Section from "../layout/section"
+import FallbackImage from "./fallback-image"
 import Skeleton from "./skeleton"
 
 export type CarouselSlide = {
@@ -61,7 +62,7 @@ export default function Carousel({ slides, loading = false }: CarouselProps) {
               >
                 {/* Backdrop */}
                 {slide.backdrop && (
-                  <img
+                  <FallbackImage
                     src={slide.backdrop}
                     alt={slide.title}
                     className="absolute inset-0 size-full object-cover"

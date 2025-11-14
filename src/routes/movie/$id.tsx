@@ -12,10 +12,8 @@ import type { MovieDetails } from "../../lib/types"
 
 import List from "../../components/layout/list"
 import Section from "../../components/layout/section"
-import CastCard from "../../components/media/cast-card"
-import CrewCard from "../../components/media/crew-card"
-import CastCardSkeleton from "../../components/media/skeletons/cast-card-skeleton"
-import CrewCardSkeleton from "../../components/media/skeletons/crew-card-skeleton"
+import ProfileCard from "../../components/media/people-card"
+import ProfileCardSkeleton from "../../components/media/skeletons/profile-card-skeleton"
 import FallbackImage from "../../components/ui/fallback-image"
 import Skeleton from "../../components/ui/skeleton"
 import { TMDB_CONFIG } from "../../constants/tmdb-config"
@@ -147,11 +145,20 @@ function RouteComponent() {
         <List layout="list">
           {isLoadingCredits
             ? Array.from({ length: 10 }).map((_, index) => (
-                <CastCardSkeleton key={index} />
+                <ProfileCardSkeleton align="center" rounded="lg" key={index} />
               ))
             : creditsData &&
               creditsData.cast?.map((cast) => (
-                <CastCard key={cast.id} cast={cast} />
+                <ProfileCard
+                  key={cast.id}
+                  imgSrc={`${env.VITE_APP_IMAGE_BASE_URL}/${TMDB_CONFIG.PROFILE_SIZE}${cast.profile_path}`}
+                  title={cast.name}
+                  subtitle={cast.character}
+                  className="items-center text-center"
+                  titleClassName="text-lg"
+                  subtitleClassName="text-sm"
+                  rounded="lg"
+                />
               ))}
         </List>
       </Section>
@@ -160,12 +167,21 @@ function RouteComponent() {
         <List layout="list">
           {isLoadingCredits
             ? Array.from({ length: 10 }).map((_, index) => (
-                <CrewCardSkeleton key={index} />
+                <ProfileCardSkeleton align="center" rounded="lg" key={index} />
               ))
             : creditsData &&
               creditsData.crew?.map((crew, index) => (
                 // There is a problem with crew IDs being non-unique in some cases
-                <CrewCard key={index} crew={crew} />
+                <ProfileCard
+                  key={index}
+                  imgSrc={`${env.VITE_APP_IMAGE_BASE_URL}/${TMDB_CONFIG.PROFILE_SIZE}${crew.profile_path}`}
+                  title={crew.name}
+                  subtitle={crew.job}
+                  className="items-center text-center"
+                  titleClassName="text-lg"
+                  subtitleClassName="text-sm"
+                  rounded="lg"
+                />
               ))}
         </List>
       </Section>

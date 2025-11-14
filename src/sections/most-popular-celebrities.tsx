@@ -1,11 +1,15 @@
 import { useQuery } from "@tanstack/react-query"
 
+import { TMDB_CONFIG } from "../constants/tmdb-config"
+
 import List from "../components/layout/list"
 import Section from "../components/layout/section"
-import PeopleCard from "../components/media/people-card"
-import PeopleCardSkeleton from "../components/media/skeletons/people-card-skeleton"
+import ProfileCard from "../components/media/people-card"
+import ProfileCardSkeleton from "../components/media/skeletons/profile-card-skeleton"
 
 import { popularPeopleQueryOptions } from "../services/query-options"
+
+import { env } from "../env"
 
 export default function MostPopularCelebritiesSection() {
   // =========== Queries ===========
@@ -17,11 +21,17 @@ export default function MostPopularCelebritiesSection() {
       <List layout="list">
         {isLoading
           ? Array.from({ length: 10 }).map((_, index) => (
-              <PeopleCardSkeleton key={index} />
+              <ProfileCardSkeleton key={index} />
             ))
           : data &&
             data.results?.map((person) => (
-              <PeopleCard key={person.id} person={person} />
+              <ProfileCard
+                key={person.id}
+                imgSrc={`${env.VITE_APP_IMAGE_BASE_URL}/${TMDB_CONFIG.PROFILE_SIZE}${person.profile_path}}`}
+                title={person.name}
+                subtitle={person.known_for_department}
+                badgeContent={`${person.popularity}`}
+              />
             ))}
       </List>
     </Section>

@@ -1,9 +1,14 @@
 import { useEffect, useState } from "react"
 
+import { Link } from "@tanstack/react-router"
+
 import Autoplay from "embla-carousel-autoplay"
 import useEmblaCarousel from "embla-carousel-react"
 
+import type { LinkProps } from "@tanstack/react-router"
+
 import Section from "../layout/section"
+import { Button } from "./button"
 import FallbackImage from "./fallback-image"
 import Skeleton from "./skeleton"
 
@@ -17,9 +22,14 @@ export type CarouselSlide = {
 type CarouselProps = {
   slides: CarouselSlide[]
   loading?: boolean
+  navigationUrl?: LinkProps["to"]
 }
 
-export default function Carousel({ slides, loading = false }: CarouselProps) {
+export default function Carousel({
+  slides,
+  loading = false,
+  navigationUrl,
+}: CarouselProps) {
   const [emblaRef, emblaApi] = useEmblaCarousel({ loop: true }, [Autoplay()])
   const [selectedIndex, setSelectedIndex] = useState(0)
   const [scrollSnaps, setScrollSnaps] = useState<number[]>([])
@@ -80,6 +90,13 @@ export default function Carousel({ slides, loading = false }: CarouselProps) {
                   <p className="mt-2 line-clamp-3 max-w-[90%] text-xs text-neutral-300 sm:line-clamp-2 sm:max-w-[50%] sm:text-sm 2xl:text-base">
                     {slide.description}
                   </p>
+                  {navigationUrl && (
+                    <Link to={navigationUrl} params={{ id: slide.id }}>
+                      <Button variant="outline" className="mt-3 px-8">
+                        Read More
+                      </Button>
+                    </Link>
+                  )}
                 </div>
               </div>
             ))}

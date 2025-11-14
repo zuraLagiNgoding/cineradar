@@ -39,7 +39,11 @@ function RouteComponent() {
 
   return (
     <>
-      <Carousel slides={topRatedMovieSlides} loading={isLoading} />
+      <Carousel
+        slides={topRatedMovieSlides}
+        loading={isLoading}
+        navigationUrl={`/movie/$id`}
+      />
 
       <MostPopularCelebritiesSection />
 
